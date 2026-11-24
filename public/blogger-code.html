@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Al Amin. — Blogger XML Code</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Hind Siliguri', system-ui, -apple-system, sans-serif;
+      background: #060d16;
+      color: #f4f4f5;
+      padding: 24px 16px;
+    }
+    .wrap {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .card {
+      background: #0b1624;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 24px;
+    }
+    h1 {
+      margin: 0 0 8px;
+      font-size: 1.5rem;
+      color: #fbbf24;
+    }
+    p {
+      margin: 0 0 16px;
+      color: #cbd5e1;
+      line-height: 1.6;
+    }
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    button, a.btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      text-decoration: none;
+      border: none;
+    }
+    .btn-primary {
+      background: #f59e0b;
+      color: #09090b;
+    }
+    .btn-secondary {
+      background: #162235;
+      color: #f4f4f5;
+      border: 1px solid rgba(255,255,255,0.18);
+    }
+    textarea {
+      width: 100%;
+      height: 420px;
+      background: #040911;
+      color: #e2e8f0;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 12px;
+      padding: 14px;
+      font-family: ui-monospace, SFMono-Regular, monospace;
+      font-size: 12px;
+      box-sizing: border-box;
+      resize: vertical;
+    }
+    .status {
+      font-size: 0.9rem;
+      color: #34d399;
+      margin-bottom: 10px;
+      min-height: 22px;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1>Al Amin. — ব্লগার (Blogger) XML থিম কোড</h1>
+      <p>
+        নিচের <strong>Copy Full XML Code</strong> বাটনে ক্লিক করে পুরো কোড কপি করুন, অথবা <strong>Download XML File</strong> বাটনে ক্লিক করে ফাইলটি সরাসরি ডাউনলোড করুন। এরপর Blogger Dashboard &rarr; Theme &rarr; Edit HTML-এ পেস্ট করে Save করুন।
+      </p>
+      <div class="actions">
+        <button class="btn-primary" id="copy-btn" type="button">Copy Full XML Code</button>
+        <a class="btn btn-secondary" download="alamin-blogger-theme.xml" href="/alamin-blogger-theme.xml">Download XML File</a>
+        <a class="btn btn-secondary" href="/">ওয়েবসাইট প্রিভিউ দেখুন</a>
+      </div>
+      <div class="status" id="status">কোড লোড হচ্ছে...</div>
+      <textarea id="xml-box" readonly="readonly"></textarea>
+    </div>
+  </div>
+  <script>
+    (function () {
+      var box = document.getElementById('xml-box');
+      var status = document.getElementById('status');
+      var copyBtn = document.getElementById('copy-btn');
+
+      fetch('/alamin-blogger-theme.xml')
+        .then(function (r) {
+          if (!r.ok) throw new Error('Load failed');
+          return r.text();
+        })
+        .then(function (txt) {
+          box.value = txt;
+          status.textContent = 'সম্পূর্ণ XML কোড প্রস্তুত (' + Math.round(txt.length / 1024) + ' KB)। এখন কপি বা ডাউনলোড করতে পারেন।';
+        })
+        .catch(function () {
+          status.textContent = 'সরাসরি লোড করা যায়নি, Download XML File বাটন ব্যবহার করুন।';
+        });
+
+      copyBtn.addEventListener('click', function () {
+        if (!box.value) return;
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(box.value).then(function () {
+            status.textContent = 'পুরো XML কোড কপি হয়েছে! এখন Blogger > Theme > Edit HTML-এ পেস্ট করুন।';
+          });
+        } else {
+          box.select();
+          document.execCommand('copy');
+          status.textContent = 'পুরো XML কোড কপি হয়েছে! এখন Blogger > Theme > Edit HTML-এ পেস্ট করুন।';
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+{
+  "name": "Kinetix — Interactive 3D & Kinetic Web Studio",
+  "description": "Interactive 3D spatial web experience with magnetic circular cursor choreography, cursor-tracking spotlight surfaces, and real-time WebGL kinetic sculptures.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
